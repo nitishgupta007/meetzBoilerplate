@@ -39,3 +39,26 @@ exports.getFriends = async (req, res) => {
 
   res.json(result);
 };
+
+exports.getFriendRequests = async (req, res) => {
+  try {
+    const requests = await FriendRequest.findAll({
+      where: {
+        [Op.or]: [
+          { senderId: req.userId },
+          { receiverId: req.userId },
+        ],
+        status: 'pending',
+      },
+      include: [
+        { model: User, as: 'sender', attributes: ['id', 'username'] },
+        { model: User, as: 'receiver', attributes: ['id', 'username'] },
+      ],
+    });
+
+    res.json(requests);
+  } catch (err) {
+    console.error('Error fetching friend requests:', err);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
