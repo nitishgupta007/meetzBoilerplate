@@ -15,17 +15,34 @@ export const loginUser = createAsyncThunk('auth/loginUser', async (data) => {
 
 const authSlice = createSlice({
   name: 'auth',
-  initialState: { user: null, token: null },
-  reducers: { logout: (state) => { state.user = null; state.token = null; } },
+  initialState: {
+    user: JSON.parse(localStorage.getItem('user')) || null,
+    token: localStorage.getItem('token') || null,
+  },
+  reducers: {
+    logout: (state) => {
+      state.user = null;
+      state.token = null;
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
+    },
+  },
   extraReducers: (builder) => {
-    builder.addCase(signupUser.fulfilled, (state, action) => {
-      state.user = action.payload.user;
-      state.token = action.payload.token;
-    });
-    builder.addCase(loginUser.fulfilled, (state, action) => {
-      state.user = action.payload.user;
-      state.token = action.payload.token;
-    });
+    builder
+      .addCase(signupUser.fulfilled, (state, action) => {
+        const { user, token } = action.payload;
+        state.user = user;
+        state.token = token;
+        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('token', token);
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        const { user, token } = action.payload;
+        state.user = user;
+        state.token = token;
+        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('token', token);
+      });
   }
 });
 

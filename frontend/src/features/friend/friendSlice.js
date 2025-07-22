@@ -1,47 +1,29 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-
-// ─── Async Actions ────────────────────────────────────────────
+import API from '../../api';
 
 export const sendRequest = createAsyncThunk(
   'friend/sendRequest',
-  async ({ token, receiverId }) => {
-    const res = await axios.post(
-      'http://localhost:5000/api/friends/send',
-      { receiverId },
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
+  async (receiverId) => {
+    const res = await API.post('/friends/send', { receiverId });
     return res.data;
   }
 );
 
 export const acceptRequest = createAsyncThunk(
   'friend/acceptRequest',
-  async ({ token, requestId }) => {
-    const res = await axios.post(
-      'http://localhost:5000/api/friends/accept',
-      { requestId },
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
+  async (requestId) => {
+    const res = await API.post('/friends/accept', { requestId });
     return res.data;
   }
 );
 
 export const fetchFriends = createAsyncThunk(
   'friend/fetchFriends',
-  async (token) => {
-    const res = await axios.get('http://localhost:5000/api/friends/list', {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+  async () => {
+    const res = await API.get('/friends/list');
     return res.data;
   }
 );
-
-// ─── Slice ─────────────────────────────────────────────────────
 
 const initialState = {
   friends: [],
