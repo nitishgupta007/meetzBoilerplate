@@ -7,7 +7,6 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { toggleMode } from '../features/theme/themeSlice';
-import logo from './logo/meetz_logo.png';
 
 const { Header } = Layout;
 
@@ -24,11 +23,11 @@ export default function HeaderComponent({ setAuthVisible }) {
       <Header style={{ padding: '0 16px' }}>
         <Row align="middle" justify="space-between" wrap>
           <Col>
-            <div className="text-xl font-bold flex items-center gap-2">
-              <img src={logo} alt="Meetz Logo" className="w-6 h-6" />
+            <div className="text-xl font-bold">
+              <span className="text-red-500">🔥</span>{' '}
               <span className="text-white">Meetz</span>
             </div>
-        </Col>
+          </Col>
 
           {/* Desktop Menu */}
           <Col className="hidden md:block" flex="auto">
