@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 
 const { Text } = Typography;
 
-export default function SearchUserBox({ onSelectUser }) {
+export default function SearchUserBox({ onSelectUser, setUserList }) {
   const [options, setOptions] = useState([]);
   const token = useSelector((state) => state.auth.token);
 
@@ -14,7 +14,7 @@ export default function SearchUserBox({ onSelectUser }) {
     if (value.length < 3) return;
 
     try {
-      const res = await axios.get(`http://localhost:5000/api/users/search?q=${value}`, {
+      const res = await axios.get(`http://localhost:4000/api/users/search?q=${value}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -30,7 +30,7 @@ export default function SearchUserBox({ onSelectUser }) {
         ),
         userData: user,
       }));
-
+      setUserList(res.data)
       setOptions(results);
     } catch (err) {
       console.error('Error fetching users:', err);

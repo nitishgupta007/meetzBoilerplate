@@ -42,7 +42,7 @@ io.on('connection', socket => {
   try {
     await connectMongo();
     await sequelize.sync();
-    server.listen(process.env.PORT || 5000, () => console.log('Server started'));
+    server.listen(process.env.PORT || 4000, () => console.log('Server started'));
   } catch (err) {
     console.error(err);
   }

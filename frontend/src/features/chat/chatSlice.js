@@ -6,7 +6,7 @@ export const sendMessage = createAsyncThunk(
   'chat/sendMessage',
   async ({ token, receiverId, content }) => {
     const res = await axios.post(
-      'http://localhost:5000/api/messages/send',
+      'http://localhost:4000/api/messages/send',
       { receiverId, content },
       {
         headers: { Authorization: `Bearer ${token}` },
@@ -19,7 +19,7 @@ export const sendMessage = createAsyncThunk(
 export const fetchMessages = createAsyncThunk(
   'chat/fetchMessages',
   async ({ token, friendId }) => {
-    const res = await axios.get(`http://localhost:5000/api/messages/${friendId}`, {
+    const res = await axios.get(`http://localhost:4000/api/messages/${friendId}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     return res.data;
