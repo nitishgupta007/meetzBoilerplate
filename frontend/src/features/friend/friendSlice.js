@@ -10,9 +10,9 @@ export const sendRequest = createAsyncThunk(
 );
 
 export const acceptRequest = createAsyncThunk(
-  'friend/acceptRequest',
-  async (requestId) => {
-    const res = await API.post('/friends/accept', { requestId });
+  'friend/accept',
+  async (senderId) => {
+    const res = await API.post('/friends/accept', { senderId });
     return res.data;
   }
 );
@@ -25,9 +25,18 @@ export const fetchFriends = createAsyncThunk(
   }
 );
 
+export const fetchFriendsRequest = createAsyncThunk(
+  'friend/requests',
+  async () => {
+    const res = await API.get('/friends/requests');
+    return res.data;
+  }
+);
+
 const initialState = {
   friends: [],
   pendingRequests: [],
+  friendRequest:[],
   status: 'idle',
   error: null,
 };
@@ -88,6 +97,19 @@ const friendSlice = createSlice({
         );
       })
       .addCase(acceptRequest.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      });
+
+    builder
+      .addCase(fetchFriendsRequest.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchFriendsRequest.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.friendRequest = action.payload
+      })
+      .addCase(fetchFriendsRequest.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       });

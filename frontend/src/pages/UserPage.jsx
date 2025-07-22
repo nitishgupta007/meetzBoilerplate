@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { fetchFriends, sendRequest } from '../features/friend/friendSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchFriends, sendRequest, fetchFriendsRequest, acceptRequest } from '../features/friend/friendSlice';
 import SearchUserBox from '../components/userSearch';
 import { Avatar, Button, Typography, Card, Row, Col } from 'antd';
 
@@ -9,9 +9,11 @@ const { Text, Title } = Typography;
 export default function UserPage() {
   const dispatch = useDispatch();
   const [userList, setUserList] = useState([]);
+  const friendRequest = useSelector((state) => state.friend.friendRequest);
 
   useEffect(() => {
     dispatch(fetchFriends());
+    dispatch(fetchFriendsRequest());
   }, [dispatch]);
 
   const handleSendRequest = (userId) => {
@@ -66,6 +68,15 @@ export default function UserPage() {
             </Card>
           </Col>
         ))}
+      </Row>
+
+      <Row>
+        {friendRequest && friendRequest.map((friend) =>
+          <div>
+            {friend.sender.username}
+            <Button onClick={() => dispatch(acceptRequest(friend.senderId))}>Accept</Button>
+          </div>
+        )}
       </Row>
     </div>
   );
