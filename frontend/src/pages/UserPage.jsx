@@ -7,6 +7,7 @@ import { Button, Layout, Menu, theme, Avatar, Typography, Card, Row, Col } from 
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchFriends, sendRequest, fetchFriendsRequest } from '../features/friend/friendSlice';
 import FriendSidebar from '../components/FriendSidebar';
+import PostInputBox from '../components/PostInputBox';
 
 const { Header, Sider, Content } = Layout;
 const { Text } = Typography;
@@ -64,6 +65,9 @@ const UserPage = () => {
             {/* Center Main Content */}
             <Col xs={24} md={16} lg={17}>
               <Row gutter={[24, 24]}>
+                <div style={{width: '100%', justifyItems: 'center'}}>
+                  <PostInputBox username="Nitish" avatarUrl="https://your-avatar-url.jpg" />
+                </div>
                 {userList.map((user) => (
                   <Col xs={24} sm={12} md={12} lg={12} key={user.id}>
                     <Card
