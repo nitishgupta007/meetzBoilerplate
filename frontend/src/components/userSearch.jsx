@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 
 const { Text } = Typography;
 
-export default function SearchUserBox({ onSelectUser, setUserList }) {
+export default function SearchUserBox({ onSelectUser }) {
   const [options, setOptions] = useState([]);
   const token = useSelector((state) => state.auth.token);
 
@@ -30,7 +30,7 @@ export default function SearchUserBox({ onSelectUser, setUserList }) {
         ),
         userData: user,
       }));
-      setUserList(res.data)
+      // setUserList(res.data)
       setOptions(results);
     } catch (err) {
       console.error('Error fetching users:', err);
