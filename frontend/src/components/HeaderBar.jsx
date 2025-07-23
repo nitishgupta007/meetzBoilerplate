@@ -20,7 +20,7 @@ import { logout } from '../features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
 import SearchUserBox from './userSearch';
 
-const HeaderBar = ({ collapsed, setCollapsed, setUserList }) => {
+const HeaderBar = ({ collapsed, setCollapsed }) => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -63,7 +63,7 @@ const HeaderBar = ({ collapsed, setCollapsed, setUserList }) => {
             onClick={() => setCollapsed(!collapsed)}
             style={{ fontSize: '16px', width: 64, height: 64 }}
           />
-          <SearchUserBox setUserList={setUserList} />
+          <SearchUserBox />
         </div>
         <Dropdown overlay={menu} placement="bottomRight" trigger={['click']}>
           <Space className="cursor-pointer">

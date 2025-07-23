@@ -29,7 +29,7 @@ const MainLayout = ({ children, setUserList }) => {
 
       <Layout>
         <Header style={{ padding: '0 16px', background: '#fff' }}>
-          <HeaderBar collapsed={collapsed} setCollapsed={setCollapsed} setUserList={setUserList} />
+          <HeaderBar collapsed={collapsed} setCollapsed={setCollapsed} />
         </Header>
 
         <Content

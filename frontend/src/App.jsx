@@ -7,6 +7,7 @@ import ChatPage from './pages/ChatPage';
 import { useSelector } from 'react-redux';
 import { ConfigProvider, theme } from 'antd';
 import ProtectedRoute from './components/ProtectedRoute';
+import MainLayout from './components/Layout/MainLayout';
 
 function App() {
   const mode = useSelector((state) => state.theme.mode);
@@ -22,7 +23,9 @@ function App() {
             path="/userPage"
             element={
               <ProtectedRoute>
-                <UserPage />
+                <MainLayout>
+                  <UserPage />
+                </MainLayout>
               </ProtectedRoute>
             } />
           <Route
