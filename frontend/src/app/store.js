@@ -9,7 +9,7 @@ export const store = configureStore({
   reducer: {
     auth: authReducer,
     user: userReducer,
-    friend: friendReducer,
+    friends: friendReducer,
     chat: chatReducer,
     theme: themeReducer,
   },
